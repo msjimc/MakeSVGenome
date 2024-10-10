@@ -259,6 +259,7 @@ namespace MakeSVGenome
             string output = filename.Substring(0, index) + ".fastq.gz";
             index  = filename.LastIndexOf("\\");
             Text = filename.Substring(index + 1);
+            string newTitle = Text + ": ";
             Application.DoEvents();
 
             StringBuilder wholeSequence = new StringBuilder();
@@ -273,11 +274,18 @@ namespace MakeSVGenome
                 GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
                 
                 wholeSequence = getSequence(filename);
-
+                int count = 0;
                 for (index = 0; index < wholeSequence.Length - length; index += interval)
                 {
                     byte[] data = Encoding.UTF8.GetBytes("@" + Readname() + "\n" + wholeSequence.ToString(index, length) + "\n" + qualityString);
                     gzipStream.Write(data, 0, data.Length);
+                    if (count > 999)
+                    { 
+                        Text = newTitle + index.ToString("N0");
+                        Application.DoEvents();
+                        count=0;
+                    }
+                     count++; 
                 }
                 gzipStream.Close();
                 gzipStream.Dispose();
