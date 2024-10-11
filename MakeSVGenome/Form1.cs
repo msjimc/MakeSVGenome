@@ -122,6 +122,38 @@ namespace MakeSVGenome
             return RCsb;
         }
 
+        private string ReverseComplement(string sb)
+        {
+            StringBuilder RCsb = new StringBuilder(sb.Length);
+            for (int i = sb.Length - 1; i > -1; i--)
+            {
+                switch (sb[i])
+                {
+                    case 'a':
+                    case 'A':
+                        RCsb.Append("T");
+                        break;
+                    case 'c':
+                    case 'C':
+                        RCsb.Append("G");
+                        break;
+                    case 'g':
+                    case 'G':
+                        RCsb.Append("C");
+                        break;
+                    case 't':
+                    case 'T':
+                        RCsb.Append("A");
+                        break;
+                    default:
+                        RCsb.Append("N");
+                        break;
+                }
+            }
+
+            return RCsb.ToString();
+        }
+
         private StringBuilder UpperCase(StringBuilder sb)
         {
             StringBuilder Uppersb = new StringBuilder(sb.Length);
@@ -204,7 +236,6 @@ namespace MakeSVGenome
                             else if (counter == startPoint)
                             { sw.Write(insert.ToString()); }
                         }
-
                         else if (char.IsLetter(bp) == true)
                         {
                             counter++;
@@ -263,7 +294,6 @@ namespace MakeSVGenome
             Application.DoEvents();
 
             StringBuilder wholeSequence = new StringBuilder();
-
             System.IO.FileStream sw = null;
             
             try
@@ -274,10 +304,23 @@ namespace MakeSVGenome
                 GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
                 
                 wholeSequence = getSequence(filename);
+                string ecneuqeSelohw = ReverseComplement(wholeSequence.ToString());
+            
                 int count = 0;
+                bool invert = false;
                 for (index = 0; index < wholeSequence.Length - length; index += interval)
                 {
-                    byte[] data = Encoding.UTF8.GetBytes("@" + Readname() + "\n" + wholeSequence.ToString(index, length) + "\n" + qualityString);
+                    string insert = "";
+                    if (invert == true)
+                    { insert = ReverseComplement(wholeSequence.ToString(index, length)); }
+                    else 
+                    {
+                        int start = (wholeSequence.Length - (length + 1)) - index;
+                        insert = ecneuqeSelohw.Substring(start, length); 
+                    }
+                    invert = !invert;
+
+                    byte[] data = Encoding.UTF8.GetBytes("@" + Readname() + "\n" + insert + "\n" + qualityString);
                     gzipStream.Write(data, 0, data.Length);
                     if (count > 999)
                     { 
