@@ -293,7 +293,7 @@ namespace MakeSVGenome
             string newTitle = Text + ": ";
             Application.DoEvents();
 
-            StringBuilder wholeSequence = new StringBuilder();
+            StringBuilder wholeSequenceSB = new StringBuilder();
             System.IO.FileStream sw = null;
             
             try
@@ -301,9 +301,10 @@ namespace MakeSVGenome
                 string qualityString = "+\n" + new string('F', length) +"\n";
 
                 sw = new FileStream(output, FileMode.Create);
-                GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
+               GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
                 
-                wholeSequence = getSequence(filename);
+                wholeSequenceSB = getSequence(filename);
+                string wholeSequence = wholeSequenceSB.ToString();
                 string ecneuqeSelohw = ReverseComplement(wholeSequence.ToString());
             
                 int count = 0;
@@ -311,8 +312,8 @@ namespace MakeSVGenome
                 for (index = 0; index < wholeSequence.Length - length; index += interval)
                 {
                     string insert = "";
-                    if (invert == true)
-                    { insert = ReverseComplement(wholeSequence.ToString(index, length)); }
+                    if (invert == false)
+                    { insert = wholeSequence.Substring(index, length); }
                     else 
                     {
                         int start = (wholeSequence.Length - (length + 1)) - index;
