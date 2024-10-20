@@ -29,13 +29,21 @@ namespace MakeSVGenome
         private void btnGet_Click(object sender, EventArgs e)
         {
             string[] items = txtDonor.Text.Split('-');
+
+            string fileDonor = FileString.OpenAs("Select the base sequence file", "*.fa|*.fa;*.fasta");
+            if (System.IO.File.Exists(fileDonor) == false) { return; }
+
+            getInsert(fileDonor, items, chkRC.Checked, false);
+        }
+
+        private bool getInsert(string fileDonor, string[] items, bool reverse, bool batchMode)
+        {
+            bool result = true;
+
             if (items.Length == 0)
             { insert = new StringBuilder(); }
             else
             {
-                string fileDonor = FileString.OpenAs("Select the base sequence file", "*.fa|*.fa;*.fasta");
-                if (System.IO.File.Exists(fileDonor) == false) { return; }
-
                 insert = new StringBuilder();
 
                 System.IO.StreamReader sf = null;
@@ -70,7 +78,7 @@ namespace MakeSVGenome
                         { break; }
                     }
 
-                    if (chkRC.Checked == true)
+                    if (reverse == true)
                     { insert = ReverseComplement(insert); }
                     else { insert = UpperCase(insert); }
 
@@ -78,7 +86,8 @@ namespace MakeSVGenome
                 catch (Exception ex)
                 {
                     insert = new StringBuilder();
-                    MessageBox.Show("Error: " + ex.Message);
+                    if (batchMode == false) { MessageBox.Show("Error: " + ex.Message); }
+                    result = false;
                 }
                 finally { if (sf != null) { sf.Close(); } }
 
@@ -88,6 +97,7 @@ namespace MakeSVGenome
                 else
                 { lblInsert.Text = "Enter location of donor sequence (e.g. 100,000,000-105,000,000)" + " - No sequence"; }
             }
+            return result;
         }
 
         private StringBuilder ReverseComplement(StringBuilder sb)
@@ -188,19 +198,25 @@ namespace MakeSVGenome
 
         private void btnPut_Click(object sender, EventArgs e)
         {
+            string[] items = txtInsertion.Text.Split('-');
+            string fileDonor = FileString.OpenAs("Select the base sequence file", "*.fa|*.fa;*.fasta");
+            if (System.IO.File.Exists(fileDonor) == false) { return; }
+            string fileSaveAs = FileString.SaveAs("Enter the name of the new reference file", "*.fa | *.fa; *.fasta");
+            if (fileSaveAs == "Cancel") { return; }
+
+            MakeFile(items, fileDonor, fileSaveAs, false);
+        }
+
+        private bool MakeFile(string[] items, string fileDonor, string fileSaveAs, bool batchMode)
+        {
+            bool result = true;
             if (insert == null) { insert = new StringBuilder(); }
 
-            string[] items = txtInsertion.Text.Split('-');
+
             if (items.Length != 2)
             { MessageBox.Show("Most enter two locations", "Error"); }
             else
             {
-                string fileDonor = FileString.OpenAs("Select the base sequence file", "*.fa|*.fa;*.fasta");
-                if (System.IO.File.Exists(fileDonor) == false) { return; }
-
-                string fileSaveAs = FileString.SaveAs("Enter the name of the new reference file", "*.fa | *.fa; *.fasta");
-                if (fileSaveAs == "Cancel") { return; }
-
                 System.IO.StreamWriter sw = null;
                 System.IO.StreamReader sf = null;
                 try
@@ -235,6 +251,7 @@ namespace MakeSVGenome
                             { sw.Write(bp); }
                             else if (counter == startPoint)
                             { sw.Write(insert.ToString()); }
+<<<<<<< HEAD
                         }
                         else if (char.IsLetter(bp) == true)
                         {
@@ -242,13 +259,17 @@ namespace MakeSVGenome
                             if (counter >= startPoint && counter <= endPoint)
                             { insert.Append(bp); }
                         }
+=======
+                        }                        
+>>>>>>> d070390 (Added batch mode)
                     }
 
                 }
                 catch (Exception ex)
                 {
                     insert = new StringBuilder();
-                    MessageBox.Show("Error: " + ex.Message);
+                    if (batchMode == false) { MessageBox.Show("Error: " + ex.Message); }
+                    result = false;
                 }
                 finally
                 {
@@ -256,6 +277,7 @@ namespace MakeSVGenome
                     if (sw != null) { sw.Close(); }
                 }
             }
+            return result;
         }
 
         private void btnMakeRead_Click(object sender, EventArgs e)
@@ -286,27 +308,33 @@ namespace MakeSVGenome
 
             int index = filename.LastIndexOf('.');
             if (index == -1) { return; }
-            
+
             string output = filename.Substring(0, index) + ".fastq.gz";
-            index  = filename.LastIndexOf("\\");
+            index = filename.LastIndexOf("\\");
             Text = filename.Substring(index + 1);
             string newTitle = Text + ": ";
             Application.DoEvents();
 
             StringBuilder wholeSequenceSB = new StringBuilder();
             System.IO.FileStream sw = null;
-            
+
             try
             {
-                string qualityString = "+\n" + new string('F', length) +"\n";
+                string qualityString = "+\n" + new string('F', length) + "\n";
 
                 sw = new FileStream(output, FileMode.Create);
-               GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
-                
+<<<<<<< HEAD
+                GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
+
                 wholeSequenceSB = getSequence(filename);
                 string wholeSequence = wholeSequenceSB.ToString();
                 string ecneuqeSelohw = ReverseComplement(wholeSequence.ToString());
-            
+
+=======
+                GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
+
+                wholeSequence = getSequence(filename);
+>>>>>>> d070390 (Added batch mode)
                 int count = 0;
                 bool invert = false;
                 for (index = 0; index < wholeSequence.Length - length; index += interval)
@@ -314,22 +342,22 @@ namespace MakeSVGenome
                     string insert = "";
                     if (invert == false)
                     { insert = wholeSequence.Substring(index, length); }
-                    else 
+                    else
                     {
                         int start = (wholeSequence.Length - (length + 1)) - index;
-                        insert = ecneuqeSelohw.Substring(start, length); 
+                        insert = ecneuqeSelohw.Substring(start, length);
                     }
                     invert = !invert;
 
                     byte[] data = Encoding.UTF8.GetBytes("@" + Readname() + "\n" + insert + "\n" + qualityString);
                     gzipStream.Write(data, 0, data.Length);
                     if (count > 999)
-                    { 
+                    {
                         Text = newTitle + index.ToString("N0");
                         Application.DoEvents();
-                        count=0;
+                        count = 0;
                     }
-                     count++; 
+                    count++;
                 }
                 gzipStream.Close();
                 gzipStream.Dispose();
@@ -360,13 +388,13 @@ namespace MakeSVGenome
                     char bp = (char)sf.Read();
                     if (bp == '>')
                     {
-                        sf.ReadLine() ;
+                        sf.ReadLine();
                     }
                     else if (char.IsLetter(bp) == true)
                     {
-                        if ((bp == 'N' || bp == 'n')== false)
+                        if ((bp == 'N' || bp == 'n') == false)
                         { sb.Append(bp); }
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)
@@ -396,5 +424,47 @@ namespace MakeSVGenome
             return result.ToString();
         }
 
+        private void batchJobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string batchFile = FileString.OpenAs("Select the batch file", "*.txt|*.txt");
+            if (System.IO.File.Exists(batchFile) == false) { return; }
+
+            System.IO.StreamReader sf = null;
+
+            try
+            {
+                string line = "";
+                string[] items = null;
+                sf = new StreamReader(batchFile);
+
+                while (sf.Peek() > 0)
+                {
+                    line = sf.ReadLine();
+                    items = line.Split('\t');
+                    if (items.Length == 6)
+                    {
+                        bool rc = false;
+                        string sRC = "";
+                        if (items[2].ToLower() == "true")
+                        {
+                            rc = true;
+                            sRC = "_RC";
+                        }
+                        string baseNamePart1 = items[0].Substring(items[0].LastIndexOf("\\") + 1);
+                        string baseNamePart2 = items[3].Substring(items[3].LastIndexOf("\\") + 1);
+                        string outputName = items[5] + "\\insert_" + baseNamePart1.Substring(0, baseNamePart1.LastIndexOf(".")) + "_" + items[1] + sRC + "_target_"
+                            + baseNamePart2.Substring(0, baseNamePart2.LastIndexOf(".")) + "_" + items[4] + ".fa";
+
+                        bool result = getInsert(items[0], items[1].Split('-'), rc, true);
+                        if (result == true)
+                        { MakeFile(items[4].Split('-'), items[3], outputName, true); }
+                    }
+                }
+            }
+            catch (Exception ex)
+            { MessageBox.Show("Error: " + ex.Message); }
+            finally
+            { if (sf != null) { sf.Close(); } }
+        }
     }
 }

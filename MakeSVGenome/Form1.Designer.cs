@@ -43,9 +43,12 @@
             lblInsert = new Label();
             btnGet = new Button();
             btnQuit = new Button();
+            menuStrip1 = new MenuStrip();
+            batchJobToolStripMenuItem = new ToolStripMenuItem();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudInterval).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudlength).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -64,9 +67,9 @@
             groupBox1.Controls.Add(txtDonor);
             groupBox1.Controls.Add(lblInsert);
             groupBox1.Controls.Add(btnGet);
-            groupBox1.Location = new Point(12, 12);
+            groupBox1.Location = new Point(12, 27);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(663, 196);
+            groupBox1.Size = new Size(663, 200);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Options";
@@ -204,7 +207,7 @@
             // btnQuit
             // 
             btnQuit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnQuit.Location = new Point(591, 214);
+            btnQuit.Location = new Point(591, 233);
             btnQuit.Name = "btnQuit";
             btnQuit.Size = new Size(75, 23);
             btnQuit.TabIndex = 1;
@@ -212,13 +215,31 @@
             btnQuit.UseVisualStyleBackColor = true;
             btnQuit.Click += btnQuit_Click;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { batchJobToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(687, 24);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // batchJobToolStripMenuItem
+            // 
+            batchJobToolStripMenuItem.Name = "batchJobToolStripMenuItem";
+            batchJobToolStripMenuItem.Size = new Size(69, 20);
+            batchJobToolStripMenuItem.Text = "Batch job";
+            batchJobToolStripMenuItem.Click += batchJobToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(687, 249);
+            ClientSize = new Size(687, 268);
             Controls.Add(btnQuit);
             Controls.Add(groupBox1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Make structural variants";
             Load += Form1_Load;
@@ -226,7 +247,10 @@
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudInterval).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudlength).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -246,5 +270,7 @@
         private NumericUpDown nudInterval;
         private NumericUpDown nudlength;
         private Label label3;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem batchJobToolStripMenuItem;
     }
 }
