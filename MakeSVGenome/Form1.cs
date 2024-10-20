@@ -251,17 +251,8 @@ namespace MakeSVGenome
                             { sw.Write(bp); }
                             else if (counter == startPoint)
                             { sw.Write(insert.ToString()); }
-<<<<<<< HEAD
-                        }
-                        else if (char.IsLetter(bp) == true)
-                        {
-                            counter++;
-                            if (counter >= startPoint && counter <= endPoint)
-                            { insert.Append(bp); }
-                        }
-=======
-                        }                        
->>>>>>> d070390 (Added batch mode)
+
+                        }                      
                     }
 
                 }
@@ -323,18 +314,13 @@ namespace MakeSVGenome
                 string qualityString = "+\n" + new string('F', length) + "\n";
 
                 sw = new FileStream(output, FileMode.Create);
-<<<<<<< HEAD
+
                 GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
 
                 wholeSequenceSB = getSequence(filename);
                 string wholeSequence = wholeSequenceSB.ToString();
                 string ecneuqeSelohw = ReverseComplement(wholeSequence.ToString());
 
-=======
-                GZipStream gzipStream = new GZipStream(sw, CompressionMode.Compress);
-
-                wholeSequence = getSequence(filename);
->>>>>>> d070390 (Added batch mode)
                 int count = 0;
                 bool invert = false;
                 for (index = 0; index < wholeSequence.Length - length; index += interval)
