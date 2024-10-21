@@ -327,13 +327,16 @@ namespace MakeSVGenome
                 {
                     string insert = "";
                     if (invert == false)
-                    { insert = wholeSequence.Substring(index, length); }
+                    { 
+                        insert = wholeSequence.Substring(index, length); 
+                        invert = true; 
+                    }
                     else
                     {
                         int start = (wholeSequence.Length - (length + 1)) - index;
                         insert = ecneuqeSelohw.Substring(start, length);
-                    }
-                    invert = !invert;
+                        invert = false;
+                    }                    
 
                     byte[] data = Encoding.UTF8.GetBytes("@" + Readname() + "\n" + insert + "\n" + qualityString);
                     gzipStream.Write(data, 0, data.Length);
