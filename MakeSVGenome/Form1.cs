@@ -74,7 +74,7 @@ namespace MakeSVGenome
                             if (counter >= startPoint && counter <= endPoint)
                             { insert.Append(bp); }
                         }
-                        else if (counter > endPoint)
+                        else if (counter > endPoint || bp == '\uffff')
                         { break; }
                     }
 
@@ -430,6 +430,7 @@ namespace MakeSVGenome
                 {
                     line = sf.ReadLine();
                     items = line.Split('\t');
+                    //MessageBox.Show(items.Length.ToString() + " " + line);
                     if (items.Length == 6)
                     {
                         bool rc = false;
@@ -444,9 +445,16 @@ namespace MakeSVGenome
                         string outputName = items[5] + "\\insert_" + baseNamePart1.Substring(0, baseNamePart1.LastIndexOf(".")) + "_" + items[1] + sRC + "_target_"
                             + baseNamePart2.Substring(0, baseNamePart2.LastIndexOf(".")) + "_" + items[4] + ".fa";
 
-                        bool result = getInsert(items[0], items[1].Split('-'), rc, true);
-                        if (result == true)
-                        { MakeFile(items[4].Split('-'), items[3], outputName, true); }
+                        if (File.Exists(outputName) == true)
+                        {
+                            MessageBox.Show(items.Length.ToString() + " " + line, "File exists");
+                        }
+                        else
+                        {
+                            bool result = getInsert(items[0], items[1].Split('-'), rc, true);
+                            if (result == true)
+                            { MakeFile(items[4].Split('-'), items[3], outputName, true); }
+                        }
                     }
                 }
             }
