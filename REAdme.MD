@@ -2,10 +2,12 @@
 
 ## Contents
 
-- [Introduction](#Introduction)
-- [Guide](#guide)
-- [Download](#download)
-- [Running on Linux systems](#running-on-linux-systems)
+- [MakeSVGenome](#makesvgenome)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Guide](#guide)
+  - [Download](#download)
+  - [Running on Linux systems](#running-on-linux-systems)
   
 ## Introduction
 
@@ -17,7 +19,6 @@ The read data produced, consists of reads of fixed length and spacing, that alte
 
 The software can be used to manually create chromosomes or in batch mode to create a number of chromosomes as described in a batch file.
 
-<center><img src="Guide/images/introLineear.jpg"></center>
 
 ## Guide
 
