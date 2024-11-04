@@ -431,7 +431,7 @@ namespace MakeSVGenome
                     line = sf.ReadLine();
                     items = line.Split('\t');
                     //MessageBox.Show(items.Length.ToString() + " " + line);
-                    if (items.Length == 6)
+                    if (items.Length > 5)
                     {
                         bool rc = false;
                         string sRC = "";
