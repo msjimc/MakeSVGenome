@@ -167,31 +167,32 @@ namespace MakeSVGenome
         private StringBuilder UpperCase(StringBuilder sb)
         {
             StringBuilder Uppersb = new StringBuilder(sb.Length);
-            for (int i = 0; i < sb.Length; i++)
-            {
-                switch (sb[i])
-                {
-                    case 'a':
-                    case 'A':
-                        Uppersb.Append("A");
-                        break;
-                    case 'c':
-                    case 'C':
-                        Uppersb.Append("C");
-                        break;
-                    case 'g':
-                    case 'G':
-                        Uppersb.Append("G");
-                        break;
-                    case 't':
-                    case 'T':
-                        Uppersb.Append("T");
-                        break;
-                    default:
-                        Uppersb.Append("N");
-                        break;
-                }
-            }
+            Uppersb.Append(sb.ToString().ToUpper());
+            //for (int i = 0; i < sb.Length; i++)
+            //{
+            //    switch (sb[i])
+            //    {
+            //        case 'a':
+            //        case 'A':
+            //            Uppersb.Append("A");
+            //            break;
+            //        case 'c':
+            //        case 'C':
+            //            Uppersb.Append("C");
+            //            break;
+            //        case 'g':
+            //        case 'G':
+            //            Uppersb.Append("G");
+            //            break;
+            //        case 't':
+            //        case 'T':
+            //            Uppersb.Append("T");
+            //            break;
+            //        default:
+            //            Uppersb.Append("N");
+            //            break;
+            //    }
+            //}
 
             return Uppersb;
         }
