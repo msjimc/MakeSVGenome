@@ -253,7 +253,7 @@ namespace MakeSVGenome
                             else if (counter == startPoint)
                             { sw.Write(insert.ToString()); }
 
-                        }                      
+                        }
                     }
 
                 }
@@ -328,16 +328,16 @@ namespace MakeSVGenome
                 {
                     string insert = "";
                     if (invert == false)
-                    { 
-                        insert = wholeSequence.Substring(index, length); 
-                        invert = true; 
+                    {
+                        insert = wholeSequence.Substring(index, length);
+                        invert = true;
                     }
                     else
                     {
                         int start = (wholeSequence.Length - (length + 1)) - index;
                         insert = ecneuqeSelohw.Substring(start, length);
                         invert = false;
-                    }                    
+                    }
 
                     byte[] data = Encoding.UTF8.GetBytes("@" + Readname() + "\n" + insert + "\n" + qualityString);
                     gzipStream.Write(data, 0, data.Length);
@@ -463,6 +463,39 @@ namespace MakeSVGenome
             { MessageBox.Show("Error: " + ex.Message); }
             finally
             { if (sf != null) { sf.Close(); } }
+        }
+
+        private void btnRing_Click(object sender, EventArgs e)
+        {
+            string[] items = txtRing.Text.Split('-');
+
+            string fileDonor = FileString.OpenAs("Select the base sequence file", "*.fa|*.fa;*.fasta");
+            if (System.IO.File.Exists(fileDonor) == false) { return; }
+
+            getInsert(fileDonor, items, chkRC.Checked, false);
+
+            int length = insert.Length;
+            int halfWay = length / 2;
+
+            string newFile = fileDonor.Substring(0, fileDonor.IndexOf('.')) + "_ring_" + txtRing.Text.Trim() + ".fa";
+
+            System.IO.StreamWriter sw = null;
+            try
+            { 
+            sw = new System.IO.StreamWriter(newFile);
+
+                sw.Write(">ring\n");
+                sw.Write(insert.ToString(halfWay, halfWay));
+                sw.Write(insert.ToString(0, halfWay - 1));
+                sw.Close();
+
+            
+            }
+            catch(Exception ex)
+            { MessageBox.Show(ex.Message,"Error creating file"); }
+            finally
+            { if (sw != null) { sw.Close(); } }
+
         }
     }
 }

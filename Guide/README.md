@@ -42,9 +42,21 @@ Figure 2a
 
 <hr />
 
-![Figure 2b1](images/figure2b.jpg)
+![Figure 2b](images/figure2b.jpg)
 
 Figure 2b
+
+<hr />
+
+## Making a ring chromosome
+
+Ring chromosomes loss their telomeres and fuse the naked chromosome end to forma ring. To emulate this, enter the breakpoint positions in the lower text area and press **Ring** and select the base reference file. In Figure 3, the breakpoints at at 10,000,000 bp and 149,000,000 bp so all sequence before 10,000,000 bp is lost along with sequence after 149,000,000 bp. After selecting the base reference file, you'll be asked to enter the output derivative reference file's name. The sequence will then be saved as two chunks, first the 2nd half of the reference sequence and then the first half. Tis results in a reference sequence in which it appears that the start and end points are one continuous sequence. However, the middle is now cut in half, but read data from the new reference will appear to be from a ring chromosome. 
+
+<hr />
+
+![Figure 3](images/figure4.jpg)
+
+Figure 3
 
 <hr />
 
@@ -71,6 +83,7 @@ Place the fasta file(s) containing the synthetic sequence in a folder that doesn
 If you create a translocation or insert data in from a different sequence you may wish create reads from the the source fasta file as well and combine reads from the modified chromosome as well as the insert source file. Combining the read files can be done on a Linux server using a command like:
 
 >zcat file1.fastq.gz file2.fastq.gz | gzip > file1and2.fastq.gz
+
 
 ## Aligning the reads to a reference file
 

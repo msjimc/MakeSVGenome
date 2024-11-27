@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            btnRing = new Button();
+            txtRing = new TextBox();
+            label1 = new Label();
             label5 = new Label();
             label4 = new Label();
             btnMakeRead = new Button();
@@ -54,6 +57,9 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(btnRing);
+            groupBox1.Controls.Add(txtRing);
+            groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(btnMakeRead);
@@ -69,16 +75,44 @@
             groupBox1.Controls.Add(btnGet);
             groupBox1.Location = new Point(12, 27);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(663, 200);
+            groupBox1.Size = new Size(663, 246);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Options";
+            // 
+            // btnRing
+            // 
+            btnRing.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRing.Location = new Point(579, 153);
+            btnRing.Name = "btnRing";
+            btnRing.Size = new Size(75, 23);
+            btnRing.TabIndex = 15;
+            btnRing.Text = "Ring";
+            btnRing.UseVisualStyleBackColor = true;
+            btnRing.Click += btnRing_Click;
+            // 
+            // txtRing
+            // 
+            txtRing.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtRing.Location = new Point(11, 153);
+            txtRing.Name = "txtRing";
+            txtRing.Size = new Size(562, 23);
+            txtRing.TabIndex = 14;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(11, 135);
+            label1.Name = "label1";
+            label1.Size = new Size(456, 15);
+            label1.TabIndex = 13;
+            label1.Text = "To make a ring chromosme, enter the limits of the retained sequence and press 'Ring'";
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Top;
             label5.AutoSize = true;
-            label5.Location = new Point(221, 158);
+            label5.Location = new Point(221, 204);
             label5.Name = "label5";
             label5.Size = new Size(71, 15);
             label5.TabIndex = 12;
@@ -88,7 +122,7 @@
             // 
             label4.Anchor = AnchorStyles.Top;
             label4.AutoSize = true;
-            label4.Location = new Point(11, 158);
+            label4.Location = new Point(11, 204);
             label4.Name = "label4";
             label4.Size = new Size(94, 15);
             label4.TabIndex = 11;
@@ -97,7 +131,7 @@
             // btnMakeRead
             // 
             btnMakeRead.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnMakeRead.Location = new Point(579, 154);
+            btnMakeRead.Location = new Point(579, 200);
             btnMakeRead.Name = "btnMakeRead";
             btnMakeRead.Size = new Size(75, 23);
             btnMakeRead.TabIndex = 10;
@@ -108,7 +142,7 @@
             // nudInterval
             // 
             nudInterval.Anchor = AnchorStyles.Top;
-            nudInterval.Location = new Point(298, 156);
+            nudInterval.Location = new Point(298, 202);
             nudInterval.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
             nudInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudInterval.Name = "nudInterval";
@@ -119,7 +153,7 @@
             // nudlength
             // 
             nudlength.Anchor = AnchorStyles.Top;
-            nudlength.Location = new Point(111, 156);
+            nudlength.Location = new Point(111, 202);
             nudlength.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             nudlength.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudlength.Name = "nudlength";
@@ -130,7 +164,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(11, 136);
+            label3.Location = new Point(11, 182);
             label3.Name = "label3";
             label3.Size = new Size(327, 15);
             label3.TabIndex = 7;
@@ -151,9 +185,9 @@
             // txtInsertion
             // 
             txtInsertion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtInsertion.Location = new Point(8, 98);
+            txtInsertion.Location = new Point(11, 98);
             txtInsertion.Name = "txtInsertion";
-            txtInsertion.Size = new Size(565, 23);
+            txtInsertion.Size = new Size(562, 23);
             txtInsertion.TabIndex = 5;
             // 
             // label2
@@ -207,7 +241,7 @@
             // btnQuit
             // 
             btnQuit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnQuit.Location = new Point(591, 233);
+            btnQuit.Location = new Point(591, 279);
             btnQuit.Name = "btnQuit";
             btnQuit.Size = new Size(75, 23);
             btnQuit.TabIndex = 1;
@@ -235,7 +269,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(687, 268);
+            ClientSize = new Size(687, 314);
             Controls.Add(btnQuit);
             Controls.Add(groupBox1);
             Controls.Add(menuStrip1);
@@ -272,5 +306,8 @@
         private Label label3;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem batchJobToolStripMenuItem;
+        private Button btnRing;
+        private TextBox txtRing;
+        private Label label1;
     }
 }
