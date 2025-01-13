@@ -64,7 +64,7 @@ Figure 3
 
 The process of sequence production can be automated by entering a tab-delimited file containing the required databy pressing the **Batch job** menu option in the top left of the interface. This file should be formated as follows. 
 
-|Column 1|Column 2|Column 3|Column 4|Column 5|Column 1|
+|Column 1|Column 2|Column 3|Column 4|Column 5|Column 6|
 |-|-|-|-|-|-|
 |Name of insert source file|Insert coordinates|Reverse complement: TRUE or FALSE|Name of base sequence file|Coordinates for the inserts location|Folder to save files too.|
 |C:\fasta\chr8.fa|14,500,000-20,000,000|TRUE|C:\fasta\chr7.fa|10,300,000-10,330,000|C:\fasta\synthetic|
