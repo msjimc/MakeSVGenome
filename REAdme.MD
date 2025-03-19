@@ -30,4 +30,4 @@ The prebuilt program can be downloaded [here](download/README.md).
 
 ## Running on Linux systems
 
-The prebuilt programs can be run on Linux (and macOS) using the Wine package as described [here](Linux_with_Wine/README.md).
+The prebuilt programs can be run on Linux (and macOS) using the Wine package as described [here](https://github.com/msjimc/RunningWindowsProgramsOnLinux).
