@@ -79,8 +79,6 @@ And finally, select the 'Keep anyway' option (Figure 10) and the download will s
 
 Figure 5
 
-Repeat the process for the MakeSVGenome.dll and MakeSVGenome.runtimeconfig.json file.
-
 # Running MakeSVGenome
 
 To run MakeSVGenome double click on the file in File Explorer and it should start. If you get an error message such as the one in Figure 6, go to the [.Net download page](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) and select the appropriate ".NET Desktop Runtime". There are a number of options make sure you chose the Desktop version.
